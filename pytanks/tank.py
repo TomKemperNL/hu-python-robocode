@@ -19,7 +19,7 @@ class Tank:
             (self.pos[0] - self.size, self.pos[1] - self.size), (self.pos[0] + self.size, self.pos[1] - self.size),
             (self.pos[0] + self.size, self.pos[1] + self.size), (self.pos[0] - self.size, self.pos[1] + self.size)], 2)
 
-        barrel_size = 20
+        barrel_size = self.size * 2
         barrelX = self.pos[0] + (math.sin(math.radians(self.barrel_orientation)) * barrel_size)
         barrelY = self.pos[1] - (math.cos(math.radians(self.barrel_orientation)) * barrel_size)
         pygame.draw.line(surface, self.color, self.pos, (barrelX, barrelY), 5)
