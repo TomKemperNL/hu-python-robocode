@@ -1,4 +1,4 @@
-class Silly_Strategy:
+class SillyStrategy:
     def __init__(self, turn_rate, forward=True):
         self.turn_rate = turn_rate
         self.forward = forward
@@ -12,3 +12,6 @@ class Silly_Strategy:
             tank.accelerate()
         else:
             tank.decelerate()
+
+    def dispatch(self, event):
+        pass
