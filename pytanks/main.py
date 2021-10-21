@@ -1,4 +1,6 @@
 import pygame, sys
+
+from silly_strategy import Silly_Strategy
 from tank import Tank
 
 from pygame.locals import *
@@ -12,11 +14,18 @@ tock = pygame.time.Clock()
 
 t1 = Tank((100, 100))
 t1.color = (0, 7, 111)
+t1Strat = Silly_Strategy(20)
 t2 = Tank((700, 500))
 t2.color = (229, 78, 208)
+t2Strat = Silly_Strategy(-5, False)
 
 command_interval = 5
 counter = 0
+
+tanks = [
+    (t1, t1Strat),
+    (t2, t2Strat)
+]
 
 while True:
     DISPLAY.fill((255, 255, 255))
@@ -27,19 +36,13 @@ while True:
             sys.exit(0)
 
     if counter != 0 and counter % command_interval == 0:
-        t1.turn(10)
-        t1.turn_turret(-10)
-        t1.accelerate()
-
-        t2.turn(-10)
-        t2.turn_turret(10)
-        t2.decelerate()
+        for t, tstrat in tanks:
+            tstrat(t)
         counter = 0
 
-    t1.move()
-    t2.move()
-    t1.draw(DISPLAY)
-    t2.draw(DISPLAY)
+    for t, tstrat in tanks:
+        t.move()
+        t.draw(DISPLAY)
     counter += 1
 
     pygame.display.update()
