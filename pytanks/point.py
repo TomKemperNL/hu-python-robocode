@@ -1,3 +1,6 @@
+import math
+
+
 class Point():
     def __init__(self, arg1, arg2=None):
         if arg2 is None:
@@ -17,3 +20,14 @@ class Point():
 
     def __len__(self):
         return 2
+
+    def move(self, angle, distance):
+        newY = self.y + math.cos(math.radians(angle)) * distance
+        newX = self.x + math.sin(math.radians(angle)) * distance
+        return Point(round(newX), round(newY))
+
+    def __eq__(self, other):
+        return other.x == self.x and other.y == self.y
+
+    def __repr__(self):
+        return f'({self.x}, {self.y})'

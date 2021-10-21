@@ -1,10 +1,12 @@
 import pygame
 import math
 
+from point import Point
+
 
 class Tank:
     def __init__(self, pos):
-        self.pos = pos
+        self.pos = Point(pos)
         self.orientation = 0
         self.barrel_orientation = 0
         self.size = 10
@@ -12,7 +14,7 @@ class Tank:
         self.color = 'red'
 
     def move(self):
-        self.pos = (self.pos[0], self.pos[1] + self.speed)
+        self.pos = self.pos.move(self.orientation, self.speed)
 
     def draw(self, surface):
         pygame.draw.polygon(surface, self.color, [
@@ -20,6 +22,4 @@ class Tank:
             (self.pos[0] + self.size, self.pos[1] + self.size), (self.pos[0] - self.size, self.pos[1] + self.size)], 2)
 
         barrel_size = self.size * 2
-        barrelX = self.pos[0] + (math.sin(math.radians(self.barrel_orientation)) * barrel_size)
-        barrelY = self.pos[1] - (math.cos(math.radians(self.barrel_orientation)) * barrel_size)
-        pygame.draw.line(surface, self.color, self.pos, (barrelX, barrelY), 5)
+        pygame.draw.line(surface, self.color, self.pos, self.pos.move(self.barrel_orientation, barrel_size), 5)
