@@ -7,7 +7,7 @@ from point import Point
 
 line_size = 2
 max_speed = 5
-min_speed = max_speed * - 0.5
+min_speed = int(max_speed * - 0.5)
 
 
 class Tank:
@@ -36,10 +36,12 @@ class Tank:
     def accelerate(self):
         self.speed += 1
         self.speed = min(self.speed, max_speed)
+        print(self.speed)
 
     def decelerate(self):
         self.speed -= 1
         self.speed = max(self.speed, min_speed)
+        print(self.speed)
 
     def __get_barrel_end(self):
         barrel_size = self.size * 2
@@ -59,7 +61,6 @@ class Tank:
             self.pos.move(self.orientation + 45, 0.5 * tank_size),
             self.pos.move(self.orientation - 45, 0.5 * tank_size),
             self.pos.move(self.orientation, front_end)], line_size)
-
 
         barrel_thickness = line_size * 3
         pygame.draw.line(surface, self.color, self.pos, self.__get_barrel_end(),
