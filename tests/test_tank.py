@@ -24,5 +24,19 @@ class TestTank(unittest.TestCase):
 
         self.assertEqual(Point(10, 15), t.pos)
 
+    def test_turn_slightly(self):
+        t = tank.Tank((10, 10))
+        t.speed = 1
+        t.orientation = 10
+        t.move()
+        self.assertNotEqual(10, t.pos.x, "Can turn slightly left")
+
+        t = tank.Tank((10, 10))
+        t.speed = 1
+        t.orientation = -10
+        t.move()
+        self.assertNotEqual(10, t.pos.x, "Can turn slightly and right")
+
+
 if __name__ == '__main__':
     unittest.main()

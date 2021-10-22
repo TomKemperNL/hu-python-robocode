@@ -24,7 +24,7 @@ class Point():
     def move(self, angle, distance):
         newY = self.y + math.cos(math.radians(angle)) * distance
         newX = self.x + math.sin(math.radians(angle)) * distance
-        return Point(round(newX), round(newY))
+        return Point(newX, newY)
 
     def __eq__(self, other):
         return other.x == self.x and other.y == self.y
