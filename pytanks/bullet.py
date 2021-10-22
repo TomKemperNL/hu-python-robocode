@@ -15,4 +15,4 @@ class Bullet:
         self.pos = self.pos.move(self.angle, self.speed)
 
     def draw(self, surface):
-        pygame.draw.circle(surface, 'black', self.pos, 5, 5)
+        surface.draw_bullet(self)

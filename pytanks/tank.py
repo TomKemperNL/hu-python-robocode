@@ -1,11 +1,6 @@
-import pygame
-import math
-
 from bullet import Bullet
-from game import Game
 from point import Point
 
-line_size = 2
 max_speed = 5
 min_speed = max_speed * - 0.5
 
@@ -18,11 +13,11 @@ class Tank:
         self.size = 10
         self.speed = 0
         self.color = 'red'
-        self.game = Game()
+        self.game = None
 
     def fire(self):
-        bullet = Bullet(self.__get_barrel_end(), self.barrel_orientation)
-        self.game.add(bullet)
+        bullet = Bullet(self.get_barrel_end(), self.barrel_orientation)
+        self.game.add_object(bullet)
 
     def move(self):
         self.pos = self.pos.move(self.orientation, self.speed)
@@ -41,26 +36,9 @@ class Tank:
         self.speed -= 1
         self.speed = max(self.speed, min_speed)
 
-    def __get_barrel_end(self):
+    def get_barrel_end(self):
         barrel_size = self.size * 2
         return self.pos.move(self.barrel_orientation, barrel_size)
 
     def draw(self, surface):
-        tank_size = self.size * 3
-
-        pygame.draw.polygon(surface, self.color, [
-            self.pos.move(self.orientation + 45, 0.5 * tank_size),
-            self.pos.move(self.orientation - 45, 0.5 * tank_size),
-            self.pos.move(self.orientation + 45, 0.5 * - tank_size),
-            self.pos.move(self.orientation - 45, 0.5 * -tank_size)], line_size)
-
-        front_end = self.size * 2
-        pygame.draw.polygon(surface, self.color, [
-            self.pos.move(self.orientation + 45, 0.5 * tank_size),
-            self.pos.move(self.orientation - 45, 0.5 * tank_size),
-            self.pos.move(self.orientation, front_end)], line_size)
-
-
-        barrel_thickness = line_size * 3
-        pygame.draw.line(surface, self.color, self.pos, self.__get_barrel_end(),
-                         barrel_thickness)
+        surface.draw_tank(self)
