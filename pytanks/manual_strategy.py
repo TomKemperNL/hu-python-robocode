@@ -11,14 +11,7 @@ class ManualStrategy:
         self.turn_right = False
         self.turn_turret_left = False
         self.turn_turret_right = False
-
-    def reset(self):
-        self.increase_speed = False
-        self.decrease_speed = False
-        self.turn_left = False
-        self.turn_right = False
-        self.turn_turret_left = False
-        self.turn_turret_right = False
+        self.fire = False
 
     def dispatch(self, event):
         if event.type == KEYDOWN:
@@ -34,6 +27,8 @@ class ManualStrategy:
                 self.turn_turret_left = True
             if event.key == K_e:
                 self.turn_turret_right = True
+            if event.key == K_SPACE:
+                self.fire = True
         elif event.type == KEYUP:
             if event.key == K_a:
                 self.turn_left = False
@@ -63,5 +58,6 @@ class ManualStrategy:
             tank.turn_turret(-turn_rate)
         if self.turn_turret_right:
             tank.turn_turret(turn_rate)
-
-
+        if self.fire:
+            tank.fire()
+            self.fire = False

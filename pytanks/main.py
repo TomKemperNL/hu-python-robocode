@@ -1,5 +1,6 @@
 import pygame, sys
 
+from game import Game
 from manual_strategy import ManualStrategy
 from silly_strategy import SillyStrategy
 from tank import Tank
@@ -13,12 +14,16 @@ FPS = 60
 loc = 0
 tock = pygame.time.Clock()
 
+current_game = Game()
+
 t1 = Tank((100, 100))
 t1.color = (0, 7, 111)
 t1Strat = ManualStrategy()
+t1.game = current_game
 t2 = Tank((700, 500))
 t2.color = (229, 78, 208)
 t2Strat = SillyStrategy(-5, False)
+t2.game = current_game
 
 command_interval = 5
 counter = 0
@@ -43,6 +48,10 @@ while True:
         for t, tstrat in tanks:
             tstrat(t)
         counter = 0
+
+    for g in current_game.game_objects:
+        g.move()
+        g.draw(DISPLAY)
 
     for t, tstrat in tanks:
         t.move()
