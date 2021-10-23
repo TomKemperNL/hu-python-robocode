@@ -2,7 +2,7 @@ from bullet import Bullet
 from point import Point
 
 max_speed = 5
-min_speed = max_speed * - 0.5
+min_speed = int(max_speed * - 0.5)
 
 
 class Tank:
